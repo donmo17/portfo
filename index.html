@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="fr" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Développeur</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      
+        .light {
+            --bg-primary: #f5f5f0;
+            --bg-secondary: #ffffff;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+            --overlay-bg: rgba(0, 0, 0, 0.5);
+        }
+        
+        .dark {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --overlay-bg: rgba(0, 0, 0, 0.7);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+
+        .custom-bg {
+            background-color: var(--bg-secondary);
+        }
+
+      
+        .section-content {
+            max-height: none;
+            overflow: visible;
+            opacity: 0;
+            display: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .section-content.active {
+            opacity: 1;
+            display: block;
+        }
+
+      
+        .sidebar {
+            height: calc(100vh - 4rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            padding: 2rem 1rem;
+            border-radius: 1rem;
+            width: 80px;
+            transition: all 0.3s ease;
+            z-index: 40;
+        }
+
+        .sidebar-top {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-link {
+            transition: all 0.3s ease;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+
+        .sidebar-link:hover {
+            background-color: var(--bg-primary);
+            transform: translateX(5px);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+      
+        .burger-menu {
+            display: none;
+            position: fixed;
+            top: 0rem;
+            left: 1rem;
+            z-index: 50;
+       
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--overlay-bg);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 30;
+        }
+
+        /* Media queries pour le responsive */
+        @media (max-width: 1024px) {
+            .burger-menu {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0 !important;
+                width: 100%;
+            }
+            main{
+                margin-left: 0 !important; 
+                margin-top: 10px;
+            }
+
+            .sidebar {
+                opacity: 0;
+                visibility: hidden;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateX(0);
+            }
+
+            .overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        .playfair {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay"></div>
+
+    <button class="burger-menu shadow-lg" id="burgerMenu">
+        <i class="fas fa-bars text-xl"></i>
+    </button>
+
+    <nav class="sidebar custom-bg shadow-lg">
+        <div class="sidebar-top">
+            <a href="#about" class="sidebar-link" title="À propos">
+                <i class="fas fa-id-card text-xl"></i> 
+            </a>
+            
+            <a href="#skills" class="sidebar-link" title="Compétences">
+                <i class="fas fa-code text-xl"></i>
+            </a>
+            
+            <a href="#education" class="sidebar-link" title="Formation">
+                <i class="fas fa-graduation-cap text-xl"></i>
+            </a>
+            
+            
+            <a href="#contact" class="sidebar-link" title="Contact">
+                <i class="fas fa-envelope text-xl"></i>
+            </a>
+            
+            <button id="openAI" class="sidebar-link" title="IA Assistant">
+                <i class="fas fa-robot text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-bottom">
+            <button id="themeToggle" class="theme-toggle">
+                <i class="fas fa-cloud-sun text-xl"></i>  
+            </button>
+        </div>
+    </nav>
+
+   
+    <main class="ml-32 p-8">
+        <br><br>
+        <div class="max-w-6xl w-full flex flex-col md:flex-row items-center justify-between gap-12">     
+            <div class="flex-1 space-y-6">
+              <div class="space-y-2">
+                <h1 class="text-4xl font-bold flex items-center gap-2">
+                 Mahamoud Coulibaly
+                  <span role="img" aria-label="wave" class="animate-pulse">👋</span>
+                </h1>
+                <h2 class="text-xl text-gray-600">
+                    Chef de projet en Architecture Logicielle
+                </h2>
+              </div>
+              
+              <p class="text-gray-600 max-w-3xl ">
+                Un développeur passionné par la création de solutions innovantes, 
+                avec d'excellentes compétences en communication, prêt à donner 
+                le meilleur pour atteindre des résultats remarquables.
+              </p>
+              
+              <button 
+                onclick="window.location.href='mailto:votre@email.com'"
+                class="bg-gray-900 text-white px-6 py-3 rounded-lg 
+                       hover:bg-gray-800 transition-colors duration-300 
+                       flex items-center gap-2 group"
+              >
+               Mon assistant AI
+                <svg 
+                  class="w-4 h-4 transform transition-transform group-hover:translate-x-1" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    stroke-width="2" 
+                    d="M14 5l7 7m0 0l-7 7m7-7H3" 
+                  />
+                </svg>
+              </button>
+            </div>
+      
+            <div class="relative "> 
+              <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-orange-400 
+                          overflow-hidden relative z-10">
+                <img
+                  src="/Sans titre-1.png"
+                  alt="Profile"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="absolute inset-0 bg-orange-400 rounded-full 
+                          transform translate-x-2 translate-y-2 -z-10"></div>
+            </div>
+          </div>
+        
+       <br><br>
+        <section id="about" class="mb-12">
+            <button class="section-header flex items-center space-x-4 custom-bg p-6 rounded-xl w-full text-left">
+                <i class="fas fa-id-card text-xl"></i> 
+                <h2 class="text-2xl playfair">À propos</h2>
+            </button>
+            <div class="section-content p-6 custom-bg mt-2 rounded-xl">
+                <div class="grid md:grid-cols-2 gap-12 items-start">
+                    <div>
+                        <img src="dev.jpeg" alt="Profile" class="rounded-lg shadow-xl">
+                    </div>
+                    <div>
+                        <p class="text-lg leading-relaxed mb-6">
+                            Depuis toujours passionné par les nouvelles technologies, j'ai commencé ma carrière en 2013 chez LA POSTE comme facteur pendant près de 4 ans (novembre 2013 - janvier 2017), où j’ai développé rigueur et organisation. 
+
+                        </p>
+                        <p class="text-lg leading-relaxed mb-6">
+                            Ensuite, en 2017, je me suis tourné vers la création numérique en tant que monteur vidéo, une expérience qui m'a permis d’explorer les outils numériques et de développer un esprit créatif technique.
+                        </p>
+                        <p class="text-lg leading-relaxed">
+                            Et, de 2019 à 2022, j'ai travaillé chez TORCYGSM comme maintenancier pendant 3 ans et 9 mois (mars 2019 - novembre 2022), où j'ai assuré la gestion, la sécurisation et le dépannage des systèmes, affinant mes compétences techniques et ma compréhension des enjeux technologiques.   </p> <br>
+                            <p class="text-lg leading-relaxed mb-6">
+                                En 2022, j'ai choisi de me reconvertir en développeur, un domaine où je peux allier ma passion pour l’innovation à ma volonté de résoudre des problèmes techniques. Aujourd’hui, je continue à me perfectionner, avec l’ambition de relever de nouveaux défis dans le développement.
+
+
+                            </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="mb-12">
+            <button class="section-header flex items-center space-x-4 custom-bg p-6 rounded-xl w-full text-left">
+                <i class="fas fa-code text-xl"></i>
+                <h2 class="text-2xl playfair">Compétences</h2>
+            </button>
+            <div class="section-content p-6 custom-bg mt-2 rounded-xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Back-End :</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                               
+                                une solide maîtrise des langages Python, Java et PHP, ainsi que des frameworks tels que Spring Boot, Express.js, Symfony et Adonis.js. J'ai également acquis de l'expérience dans la gestion de bases de données, tant relationnelles (PostgreSQL, MySQL) que NoSQL (MongoDB, Redis), en mettant l'accent sur l'optimisation des requêtes et la conception de bases de données normalisées.
+                            </li>
+                           
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Frontend:</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                               
+                                Maîtrise de React.js, React Native, JavaScript, Tailwind CSS, Bootstrap, Twig, ainsi que HTML et CSS. Expérience dans le développement d'applications de bureau avec Electron.js. Compétences en conception d'interfaces utilisateurs avec Figma et Adobe XD.                            </li>
+                           
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Cloud Computing et Déploiement :</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                               
+                                Expérience en cloud computing avec AWS, Google Cloud Platform (GCP) et Elastic Cloud pour le déploiement et la gestion d’applications en ligne. Expertise en conteneurisation et orchestration via Docker et Kubernetes. Compétence en déploiement de code sur des serveurs en ligne à l'aide de GitHub et GitLab.
+                            </li>
+                           
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Sécurité Applicative :</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                               
+                                Connaissance des bonnes pratiques de sécurité applicative, incluant l’authentification, le chi rement des données et le respect des standards de sécurité pour la protection des applications.Expérience dans l'intégration de solutions de paiement en ligne, notamment avec Stripe.Maîtrise des méthodologies agiles, particulièrement Scrum, pour une gestion de projet e cace et collaborative.                            </li>
+                           
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            
+            
+        </section>
+
+        <section id="education" class="mb-12">
+            <button class="section-header flex items-center space-x-4 custom-bg p-6 rounded-xl w-full text-left">
+                <i class="fas fa-graduation-cap text-xl"></i>
+                <h2 class="text-2xl playfair">Formations</h2>
+            </button>
+            <div class="section-content p-6 custom-bg mt-2 rounded-xl">
+                <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-row-4 gap-8">
+                    <div class="p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Actuel -Chef de projet en architecture logicielle (RNCP niveau 7)</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                               
+                                Gestion des processus, de la qualité, des ressources et des risques dans les projets informatiques, tout en adoptant les bonnes pratiques de communication et en coordonnant e cacement avec les di érents acteurs, dans des environnements techniques incluant des architectures 3 tiers, N tiers et micro-services, avec des compétences en développement (Node.js, Angular, Java, C#, PHP) et en frameworks, ainsi que dans l'utilisation de solutions de conteneurisation et d'orchestration.(ASTON INSTITUT)                            </li>
+                           
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4"> Juillet 2024 - Novembre 2024 Stage de fin de formation en conception et développement d’applications</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                               
+                                Amélioration de l'application et de la base de données (FastAPI, Elasticsearch) ; création d'un workflow de transformation via des outils IA (Python) ; développement de solutions d'extraction et de transformation de données (LEGOMNIA).
+                           
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Janvier 2024 - Juillet 2024 Concepteur et développeur d’applications (RNCP niveau 6)</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                               
+                                De la conception au déploiement : connaissances en cloud, sécurisation des applications et apprentissage des langages adaptés au développement desktop et mobile. (PREPAVENIR)                            </li>
+                           
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Novembre 2023 - Décembre 2023
+                            Formation en anglais à visée professionnelle</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                               
+                                Apprentissage de l'anglais dans un cadre professionnel. (RESSOURCES FORMATION) </li>                           
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Juillet 2023 - Septembre 2023
+                            Stage de fin de formation en développement web et web mobile</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                               
+                                Conception de web apps e-commerce avec recherche dynamique en TypeScript et Express.js ; intégration de Stripe pour les paiements et développement de dashboards interactifs. (POLYRION)
+ </li>                           
+                        </ul>
+                    </div>
+                    <div class="p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Décembre 2022 - Juillet 2023
+                            Développeur web et web mobile (RNCP niveau 5)</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                               
+                                Apprentissage des langages de programmation, des frameworks, des bases de données, ainsi que des outils de design tels qu'Adobe XD et Figma. (PREPAVENIR) </li>                           
+                        </ul>
+                    </div>
+
+                
+                
+            </div>
+            
+            
+        </section>
+
+        <section id="contact" class="mb-12">
+            <button class="section-header flex items-center space-x-4 custom-bg p-6 rounded-xl w-full text-left">
+                <i class="fas fa-envelope text-xl"></i>
+                <h2 class="text-2xl playfair">Contact</h2>
+            </button>
+            <div class="section-content p-6 custom-bg mt-2 rounded-xl">
+                <div class="max-w-4xl mx-auto p-6">
+                    <h2 class="text-3xl font-bold text-center mb-8">Contactez-moi</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      
+                   
+                      <a 
+                        href="https://linkedin.com/in/mahamoudcoulibaly" 
+                        class="flex items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                      >
+                        <div class="p-3 bg-blue-500 rounded-full">
+                          <i data-lucide="linkedin" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                          <h3 class="font-semibold text-gray-800">LinkedIn</h3>
+                          <p class="text-sm text-gray-600">Suivez mon parcours professionnel</p>
+                        </div>
+                      </a>
+                
+                   
+                      <a 
+                        href="https://github.com/donmo17" 
+                        class="flex items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                      >
+                        <div class="p-3 bg-gray-800 rounded-full">
+                          <i data-lucide="github" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                          <h3 class="font-semibold text-gray-800">GitHub</h3>
+                          <p class="text-sm text-gray-600">Découvrez mes projets</p>
+                        </div>
+                      </a>
+                
+                      <a 
+                        href="mailto:votre@email.com" 
+                        class="flex items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                      >
+                        <div class="p-3 bg-red-500 rounded-full">
+                          <i data-lucide="mail" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                          <h3 class="font-semibold text-gray-800">Email</h3>
+                          <p class="text-sm text-gray-600">doncoulybak@gmail.com</p>
+                        </div>
+                      </a>
+                
+                     
+                      <a 
+                        href="tel:+33600000000" 
+                        class="flex items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                      >
+                        <div class="p-3 bg-green-500 rounded-full">
+                          <i data-lucide="phone" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                          <h3 class="font-semibold text-gray-800">Téléphone</h3>
+                          <p class="text-sm text-gray-600">+33 7 83 20 84 62</p>
+                        </div>
+                      </a>
+                
+                      <!-- Adresse -->
+                      <div class="flex items-center p-4 bg-white rounded-lg shadow-md">
+                        <div class="p-3 bg-purple-500 rounded-full">
+                          <i data-lucide="map-pin" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                          <h3 class="font-semibold text-gray-800">Adresse</h3>
+                          <p class="text-sm text-gray-600">Paris 18eme</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    </div></section>
+    </main>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('light')) {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                themeIcon.classList.remove('fa-cloud-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-cloud-sun');
+            }
+        });
+
+        // Section Toggle avec animation
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                
+                document.querySelectorAll('.section-content').forEach(otherContent => {
+                    if (otherContent !== content && otherContent.classList.contains('active')) {
+                        otherContent.classList.remove('active');
+                    }
+                });
+
+                content.classList.toggle('active');
+                
+                if (content.classList.contains('active')) {
+                    gsap.from(content, {
+                        duration: 0.5,
+                        opacity: 0,
+                        y: -20,
+                        ease: "power2.out"
+                    });
+                }
+            });
+        });
+
+        const burgerMenu = document.getElementById('burgerMenu');
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMenu() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            const icon = burgerMenu.querySelector('i');
+            if (sidebar.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        burgerMenu.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        lucide.createIcons();
+    </script>
+</body>
+</html>
