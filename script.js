@@ -75,7 +75,7 @@ Compétences interpersonnelles : Aptitude à travailler efficacement avec des pe
      const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
      
      // Instruction de départ pour guider les réponses de l'API
-     const instruction = "Veuillez vérifier si la question posée est en rapport avec les informations suivantes sur moi. Si ce n'est pas le cas, indiquez poliment que vous ne pouvez pas répondre à cette question et repondez simplement a la question en faisant une phrase correcte et en developpant comme si c'était toi sans rien ajouter .";
+     const instruction = "Veuillez vérifier si la question posée concerne bien les informations me concernant. Si ce n'est pas le cas, veuillez indiquer poliment que vous ne pouvez pas répondre à cette question. Si, en revanche, elle est bien en rapport, répondez de manière complète et en développant comme si c'était moi-même qui répondais, sans ajouter d'éléments supplémentaires .";
      
      // Fonction pour générer la réponse de l'API
      const generateApiResponse = async (msg) => {
