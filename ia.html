@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Développeur</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+  
+ 
+    <style>
+      
+        .light {
+            --bg-primary: #f5f5f0;
+            --bg-secondary: #ffffff;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+            --overlay-bg: rgba(0, 0, 0, 0.5);
+        }
+        
+        .dark {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --overlay-bg: rgba(0, 0, 0, 0.7);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+
+        .custom-bg {
+            background-color: var(--bg-secondary);
+        }
+
+      
+        .section-content {
+            max-height: none;
+            overflow: visible;
+            opacity: 0;
+            display: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .section-content.active {
+            opacity: 1;
+            display: block;
+        }
+
+      
+        .sidebar {
+            height: calc(100vh - 4rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            padding: 2rem 1rem;
+            border-radius: 1rem;
+            width: 80px;
+            transition: all 0.3s ease;
+            z-index: 40;
+        }
+
+        .sidebar-top {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar-link {
+            transition: all 0.3s ease;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+
+        .sidebar-link:hover {
+            background-color: var(--bg-primary);
+            transform: translateX(5px);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+      
+        .burger-menu {
+            display: none;
+            position: fixed;
+            top: 0rem;
+            left: 1rem;
+            z-index: 50;
+       
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--overlay-bg);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 30;
+        }
+
+        /* Media queries pour le responsive */
+        @media (max-width: 1024px) {
+            .burger-menu {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0 !important;
+                width: 100%;
+            }
+            main{
+                margin-left: 0 !important; 
+                margin-top: 10px;
+            }
+
+            .sidebar {
+                opacity: 0;
+                visibility: hidden;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateX(0);
+            }
+
+            .overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        .playfair {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay"></div>
+
+    <button class="burger-menu shadow-lg" id="burgerMenu">
+        <i class="fas fa-bars text-xl"></i>
+    </button>
+
+    <nav class="sidebar custom-bg shadow-lg">
+        <div class="sidebar-top">
+            <a href="index.html#apropos" class="sidebar-link" title="À propos">
+                <i class="fas fa-id-card text-xl"></i> 
+            </a>
+            
+            <a href="index.html#skills" class="sidebar-link" title="Compétences">
+                <i class="fas fa-code text-xl"></i>
+            </a>
+            
+            <a href="index.html#education" class="sidebar-link" title="Formation">
+                <i class="fas fa-graduation-cap text-xl"></i>
+            </a>
+            
+            
+            <a href="index.html#contact" class="sidebar-link" title="Contact">
+                <i class="fas fa-envelope text-xl"></i>
+            </a>
+            
+            <button id="openAI" class="sidebar-link" title="IA Assistant">
+                <i class="fas fa-robot text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-bottom">
+            <button id="themeToggle" class="theme-toggle">
+                <i class="fas fa-cloud-sun text-xl"></i>  
+            </button>
+        </div>
+    </nav>
+
+   
+    <main class="ml-32 p-8">
+        <h1 class="text-2xl font-bold">Bonjour,</h1>
+        <div class=" mx-auto mt-16">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+             
+              <div class="mt-4">
+                <h2 class="text-lg  text-gray-900 font-medium">Assistant Ia</h2>
+                <p class="mt-2 text-gray-900">Je suis l’assistant IA de Monsieur Coulibaly Mahamoud. Je suis disponible pour répondre à toutes vos questions concernant son expertise, son parcours professionnel, ses compétences, ou tout autre aspect de son profil. Mon objectif est de vous fournir des informations précises, limitées toutefois au cadre professionnel de son profil. 😅</p>
+                <div class="mt-4">
+                    <a href="index.html#contact" class="bg-black hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg">Ou contactez-moi directement </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="chatHistoryDisplay" class="mt-8 bg-gray-100 rounded-lg shadow-lg p-6" style="max-height: 500px; overflow-y: auto;"></div>
+
+<div class="shadow-top p-4 flex items-center">
+    <input type="text" id="messageInput" class="border flex-grow px-4 py-2 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Que souhaitez-vous savoir à propos de Mahamoud ?" />
+    <button id="sendButton" class="ml-4 bg-black hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg">Envoyer</button>
+</div>
+
+
+    </main>
+    <script src="script.js"></script>
+
+</body>
+</html>

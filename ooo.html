@@ -8,9 +8,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-      
+        /* Styles de base existants */
         .light {
             --bg-primary: #f5f5f0;
             --bg-secondary: #ffffff;
@@ -38,7 +37,7 @@
             background-color: var(--bg-secondary);
         }
 
-      
+        /* Styles des sections dépliantes */
         .section-content {
             max-height: none;
             overflow: visible;
@@ -52,7 +51,7 @@
             display: block;
         }
 
-      
+        /* Style de la sidebar avec ajouts pour l'overlay */
         .sidebar {
             height: calc(100vh - 4rem);
             display: flex;
@@ -103,7 +102,7 @@
             transition: all 0.3s ease;
         }
 
-      
+        /* Nouveaux styles pour le burger et l'overlay */
         .burger-menu {
             display: none;
             position: fixed;
@@ -127,7 +126,9 @@
             transition: all 0.3s ease;
             z-index: 30;
         }
-
+titre{
+    background-color: red;
+}
         /* Media queries pour le responsive */
         @media (max-width: 1024px) {
             .burger-menu {
@@ -167,17 +168,19 @@
     </style>
 </head>
 <body>
-
+    <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
 
+    <!-- Burger Menu -->
     <button class="burger-menu shadow-lg" id="burgerMenu">
         <i class="fas fa-bars text-xl"></i>
     </button>
 
+    <!-- Sidebar Navigation -->
     <nav class="sidebar custom-bg shadow-lg">
         <div class="sidebar-top">
             <a href="#about" class="sidebar-link" title="À propos">
-                <i class="fas fa-id-card text-xl"></i> 
+                <i class="fas fa-id-card text-xl"></i>  <!-- Id card icon -->
             </a>
             
             <a href="#skills" class="sidebar-link" title="Compétences">
@@ -200,15 +203,15 @@
         
         <div class="sidebar-bottom">
             <button id="themeToggle" class="theme-toggle">
-                <i class="fas fa-cloud-sun text-xl"></i>  
+                <i class="fas fa-cloud-sun text-xl"></i>  <!-- Soleil avec nuage -->
             </button>
         </div>
     </nav>
 
-   
+    <!-- Main Content -->
     <main class="ml-32 p-8">
-        <br><br>
-        <div class="max-w-6xl w-full flex flex-col md:flex-row items-center justify-between gap-12">     
+        <div class="max-w-full w-full flex flex-col md:flex-row items-center justify-center ">
+            <!-- Contenu gauche -->
             <div class="flex-1 space-y-6">
               <div class="space-y-2">
                 <h1 class="text-4xl font-bold flex items-center gap-2">
@@ -220,19 +223,19 @@
                 </h2>
               </div>
               
-              <p class="text-gray-500 max-w-3xl ">
+              <p class="text-gray-600 max-w-3xl">
                 Un développeur passionné par la création de solutions innovantes, 
                 avec d'excellentes compétences en communication, prêt à donner 
                 le meilleur pour atteindre des résultats remarquables.
               </p>
               
               <button 
-              onclick="window.location.href='ia.html'"
+                onclick="window.location.href='mailto:votre@email.com'"
                 class="bg-gray-900 text-white px-6 py-3 rounded-lg 
                        hover:bg-gray-800 transition-colors duration-300 
                        flex items-center gap-2 group"
               >
-               Mon assistant AI
+                Mon assistant IA
                 <svg 
                   class="w-4 h-4 transform transition-transform group-hover:translate-x-1" 
                   fill="none" 
@@ -248,8 +251,9 @@
                 </svg>
               </button>
             </div>
-      
-            <div class="relative "> 
+        
+            <!-- Contenu droit - Image de profil -->
+            <div class="relative">
               <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-orange-400 
                           overflow-hidden relative z-10">
                 <img
@@ -266,7 +270,7 @@
        <br><br>
         <section id="about" class="mb-12">
             <button class="section-header flex items-center space-x-4 custom-bg p-6 rounded-xl w-full text-left">
-                <i class="fas fa-id-card text-xl"></i> 
+                <i class="fas fa-id-card text-xl"></i>  <!-- Id card icon -->
                 <h2 class="text-2xl playfair">À propos</h2>
             </button>
             <div class="section-content p-6 custom-bg mt-2 rounded-xl">
@@ -427,9 +431,9 @@
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       
-                   
+                      <!-- LinkedIn -->
                       <a 
-                        href="https://linkedin.com/in/mahamoudcoulibaly" 
+                        href="https://linkedin.com/in/votre-profil" 
                         class="flex items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
                       >
                         <div class="p-3 bg-blue-500 rounded-full">
@@ -441,9 +445,9 @@
                         </div>
                       </a>
                 
-                   
+                      <!-- GitHub -->
                       <a 
-                        href="https://github.com/donmo17" 
+                        href="https://github.com/votre-profil" 
                         class="flex items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
                       >
                         <div class="p-3 bg-gray-800 rounded-full">
@@ -455,6 +459,7 @@
                         </div>
                       </a>
                 
+                      <!-- Email -->
                       <a 
                         href="mailto:votre@email.com" 
                         class="flex items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
@@ -464,11 +469,11 @@
                         </div>
                         <div class="ml-4">
                           <h3 class="font-semibold text-gray-800">Email</h3>
-                          <p class="text-sm text-gray-600">doncoulybak@gmail.com</p>
+                          <p class="text-sm text-gray-600">votre@email.com</p>
                         </div>
                       </a>
                 
-                     
+                      <!-- Téléphone -->
                       <a 
                         href="tel:+33600000000" 
                         class="flex items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
@@ -478,7 +483,7 @@
                         </div>
                         <div class="ml-4">
                           <h3 class="font-semibold text-gray-800">Téléphone</h3>
-                          <p class="text-sm text-gray-600">+33 7 83 20 84 62</p>
+                          <p class="text-sm text-gray-600">+33 6 00 00 00 00</p>
                         </div>
                       </a>
                 
@@ -489,7 +494,7 @@
                         </div>
                         <div class="ml-4">
                           <h3 class="font-semibold text-gray-800">Adresse</h3>
-                          <p class="text-sm text-gray-600">Paris 18eme</p>
+                          <p class="text-sm text-gray-600">Votre adresse complète</p>
                         </div>
                       </div>
                     </div>
@@ -541,6 +546,7 @@
             });
         });
 
+        // Burger Menu Toggle
         const burgerMenu = document.getElementById('burgerMenu');
         const sidebar = document.querySelector('.sidebar');
         const overlay = document.getElementById('overlay');
@@ -562,6 +568,7 @@
         burgerMenu.addEventListener('click', toggleMenu);
         overlay.addEventListener('click', toggleMenu);
 
+        // Fermer le menu au clic sur un lien en mobile
         document.querySelectorAll('.sidebar-link').forEach(link => {
             link.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
@@ -569,11 +576,6 @@
                 }
             });
         });
-
-        lucide.createIcons();
-        document.getElementById('openAI').addEventListener('click', function() {
-        window.location.href = 'ia.html';  // Redirection vers ai.html
-    });
     </script>
 </body>
 </html>
