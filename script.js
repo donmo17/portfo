@@ -1,6 +1,6 @@
      
      const profil = `
-     👋 Bonjour ! Je suis Mahamoud, développeur junior de 29 ans, récemment diplômé en conception et développement d'applications.
+     👋 Bonjour ! ceci est mon portfolio Je suis Mahamoud ou parfois momo ou il peut y avoir des erreurs en ecrivant mon nom , développeur junior de 29 ans, récemment diplômé en conception et développement d'applications.
      
      💡 Motivé à poursuivre mon évolution professionnelle, je recherche une alternance pour mon Master en Architecture Logicielle. Le rythme d'alternance d'une semaine par mois me permettra de m'investir pleinement dans vos projets tout en perfectionnant mes compétences techniques.
      
