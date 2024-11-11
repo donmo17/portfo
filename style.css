@@ -1,0 +1,153 @@
+.light {
+    --bg-primary: #f5f5f0;
+    --bg-secondary: #ffffff;
+    --text-primary: #000000;
+    --text-secondary: #666666;
+    --overlay-bg: rgba(0, 0, 0, 0.5);
+}
+
+.dark {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --overlay-bg: rgba(0, 0, 0, 0.7);
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh;
+}
+
+.custom-bg {
+    background-color: var(--bg-secondary);
+}
+
+
+.section-content {
+    max-height: none;
+    overflow: visible;
+    opacity: 0;
+    display: none;
+    transition: opacity 0.3s ease;
+}
+
+.section-content.active {
+    opacity: 1;
+    display: block;
+}
+
+
+.sidebar {
+    height: calc(100vh - 4rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    padding: 2rem 1rem;
+    border-radius: 1rem;
+    width: 80px;
+    transition: all 0.3s ease;
+    z-index: 40;
+}
+
+.sidebar-top {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sidebar-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sidebar-link {
+    transition: all 0.3s ease;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+.sidebar-link:hover {
+    background-color: var(--bg-primary);
+    transform: translateX(5px);
+}
+
+.theme-toggle {
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+
+.burger-menu {
+    display: none;
+    position: fixed;
+    top: 0rem;
+    left: 1rem;
+    z-index: 50;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay-bg);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 30;
+}
+
+/* Media queries pour le responsive */
+@media (max-width: 1024px) {
+    .burger-menu {
+        display: block;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+    main{
+        margin-left: 0 !important; 
+        margin-top: 10px;
+    }
+
+    .sidebar {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
+
+    .overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.playfair {
+    font-family: 'Playfair Display', serif;
+}
