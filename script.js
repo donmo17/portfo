@@ -69,7 +69,7 @@ Adaptabilité : Être flexible et capable de s'adapter aux changements rapides d
 Esprit stratégique : Vision à long terme pour aligner les initiatives informatiques avec les objectifs stratégiques de l'entreprise.
 Gestion du stress : Capacité à rester calme et efficace sous pression.
 Intelligence émotionnelle : Comprendre et gérer ses propres émotions ainsi que celles des autres pour améliorer les relations professionnelles.
-Compétences interpersonnelles : Aptitude à travailler efficacement avec des personnes de tous niveaux et de toutes fonctions. // mon pays est en france .// je recherche une alternance avec un rythme de 3 semaine au boulot et une semaine a l'ecole 
+Compétences interpersonnelles : Aptitude à travailler efficacement avec des personnes de tous niveaux et de toutes fonctions. // mon pays est en france .// je recherche une alternance avec un rythme de 3 semaine au boulot et une semaine a l'ecole  et la durée totale est prevu pour 14 mois .
      `;
      const API_KEY = 'AIzaSyCb6U2_Oxm1yZOyrjNUSKsYLmIsN2VxIfA';
      const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
